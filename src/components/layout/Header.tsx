@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { TabSwitcher } from "@/components/ui/TabSwitcher";
-import { navLinks } from "@/data/navigation";
+import { navLinksByVariant } from "@/data/navigation";
 import { Menu, X } from "lucide-react";
 
 export function Header() {
-  const { goToChooser } = useTheme();
+  const { goToChooser, variant } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navLinks = navLinksByVariant[variant];
 
   return (
     <header className="fixed top-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1344px] -translate-x-1/2 md:top-8 md:w-[calc(100%-4rem)]">

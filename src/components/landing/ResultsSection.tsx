@@ -9,7 +9,7 @@ interface Props {
 
 export function ResultsSection({ content }: Props) {
   return (
-    <section className="bg-bg-secondary py-20">
+    <section id="results" className="scroll-mt-24 bg-bg-secondary py-20">
       <Container>
         <ScrollReveal>
           <SectionHeading

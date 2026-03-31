@@ -2,6 +2,7 @@ export type Variant = "management" | "personal";
 
 export interface HeroContent {
   heading: string;
+  highlightText?: string;
   subtitle: string;
   ctaText: string;
   benefits: BenefitCard[];

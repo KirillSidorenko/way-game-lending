@@ -16,10 +16,11 @@ export function TabSwitcher() {
         <button
           key={tab}
           onClick={() => setVariant(tab)}
+          style={variant === tab ? { backgroundColor: "var(--accent)" } : undefined}
           className={cn(
             "relative z-10 rounded-full px-5 py-2 text-xs font-medium transition-all duration-300 cursor-pointer whitespace-nowrap",
             variant === tab
-              ? "bg-gradient-to-t from-accent to-accent-hover text-white shadow-md"
+              ? "text-white shadow-[0_8px_20px_rgba(15,23,42,0.16)]"
               : "text-black hover:text-black/70",
           )}
         >

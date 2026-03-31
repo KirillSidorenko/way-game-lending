@@ -82,3 +82,66 @@ body {
 * {
   transition: background-color 0.5s ease, border-color 0.5s ease;
 }
+
+.bg-bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-bg-card {
+  background-color: var(--bg-card);
+}
+
+.hover\:bg-bg-card-hover:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.text-text-primary {
+  color: var(--text-primary);
+}
+
+.text-text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-text-muted {
+  color: var(--text-muted);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.bg-accent\/20 {
+  background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.bg-accent\/10 {
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.border-accent\/50 {
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.hover\:border-accent\/30:hover {
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.from-accent {
+  --tw-gradient-from: var(--accent) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--accent) 0%, transparent)
+    var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-accent-hover {
+  --tw-gradient-to: var(--accent-hover) var(--tw-gradient-to-position);
+}

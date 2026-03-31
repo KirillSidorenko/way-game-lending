@@ -1,65 +1,187 @@
+import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import type { HeroContent } from "@/lib/types";
 import Image from "next/image";
+import type { HeroContent, Variant } from "@/lib/types";
 
 interface HeroSectionProps {
   content: HeroContent;
+  variant: Variant;
 }
 
-export function HeroSection({ content }: HeroSectionProps) {
+const heroAssets = {
+  management: {
+    accentSrc: "/images/hero/hero-management-accent.svg",
+    backgroundSrc: "/images/hero/hero-management-bg.webp",
+    overlaySrc: "/images/hero/hero-management-overlay.webp",
+  },
+  personal: {
+    accentSrc: "/images/hero/hero-personal-accent.svg",
+    backgroundSrc: "/images/hero/hero-personal-bg.webp",
+    gradientSrc: "/images/hero/hero-personal-gradient.webp",
+    overlaySrc: "/images/hero/hero-personal-overlay.webp",
+  },
+} satisfies Record<
+  Variant,
+  {
+    accentSrc: string;
+    backgroundSrc: string;
+    overlaySrc: string;
+    gradientSrc?: string;
+  }
+>;
+
+function splitHeading(text: string, highlightText?: string) {
+  if (!highlightText) {
+    return { after: "", before: text, highlight: "" };
+  }
+
+  const index = text.lastIndexOf(highlightText);
+
+  if (index === -1) {
+    return { after: "", before: text, highlight: "" };
+  }
+
+  return {
+    after: text.slice(index + highlightText.length),
+    before: text.slice(0, index),
+    highlight: highlightText,
+  };
+}
+
+function HeroBackground({ variant }: { variant: Variant }) {
+  const assets = heroAssets[variant];
+
+  if (variant === "management") {
+    return (
+      <>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#020829_0%,#05103a_54%,#01061b_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(32,126,255,0.18)_0%,transparent_32%)]" />
+        <div className="absolute inset-x-0 bottom-0 top-[17rem] sm:top-[18rem] md:top-[14rem]">
+          <Image
+            src={assets.backgroundSrc}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain object-[center_84%] scale-[1.55] sm:scale-[1.35] md:scale-[1.08] lg:scale-100"
+          />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 top-[15rem] opacity-80 mix-blend-screen md:top-[13rem]">
+          <Image
+            src={assets.overlaySrc}
+            alt=""
+            fill
+            loading="eager"
+            sizes="100vw"
+            className="object-contain object-[center_84%] scale-[1.6] sm:scale-[1.36] md:scale-[1.08] lg:scale-100"
+          />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#01071e] via-[#01071e]/90 to-transparent md:h-72" />
+      </>
+    );
+  }
+
   return (
-    <section className="relative min-h-screen overflow-hidden bg-bg-primary pt-32 pb-8">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/60 via-transparent to-bg-primary z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--accent-glow)_0%,transparent_70%)]" />
+    <>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,#290900_0%,#2f0d03_42%,#120401_100%)]" />
+      <Image
+        src={assets.backgroundSrc}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[center_58%] scale-[1.06]"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(67,19,3,0.76)_0%,rgba(57,16,4,0.34)_32%,rgba(17,4,1,0.84)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,173,92,0.16)_0%,transparent_28%)]" />
+      {assets.gradientSrc ? (
+        <div className="absolute inset-x-0 bottom-0 h-[72px] opacity-80 md:h-[100px]">
+          <Image
+            src={assets.gradientSrc}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      ) : null}
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#120401] via-[#120401]/70 to-transparent md:h-64" />
+    </>
+  );
+}
+
+export function HeroSection({ content, variant }: HeroSectionProps) {
+  const assets = heroAssets[variant];
+  const heading = splitHeading(content.heading, content.highlightText);
+
+  return (
+    <section className="relative isolate min-h-[920px] overflow-hidden bg-bg-primary pt-28 pb-6 md:min-h-screen md:pt-32 md:pb-8">
+      <div className="absolute inset-0 pointer-events-none">
+        <HeroBackground variant={variant} />
       </div>
 
-      <Container className="relative z-20 flex flex-col items-center text-center">
-        <ScrollReveal>
-          <h1 className="max-w-4xl text-4xl font-bold leading-[1.15] text-white md:text-5xl lg:text-[52px]">
-            {content.heading}
-          </h1>
-        </ScrollReveal>
+      <Container className="relative z-10 flex min-h-[calc(920px-7rem)] flex-col md:min-h-[calc(100vh-8rem)]">
+        <div className="mx-auto flex w-full max-w-[1040px] flex-col items-center text-center">
+          <ScrollReveal>
+            <h1 className="max-w-[980px] text-[2.5rem] font-semibold leading-[1.06] tracking-[-0.04em] text-white sm:text-5xl md:text-[68px]">
+              {heading.before}
+              {heading.highlight ? (
+                <span className="relative inline-block whitespace-nowrap">
+                  {heading.highlight}
+                  <Image
+                    src={assets.accentSrc}
+                    alt=""
+                    width={268}
+                    height={21}
+                    className="pointer-events-none absolute -bottom-3 left-1/2 h-auto w-[clamp(10rem,24vw,16.75rem)] -translate-x-1/2 md:-bottom-4"
+                  />
+                </span>
+              ) : null}
+              {heading.after}
+            </h1>
+          </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
-          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-white/70 md:text-base">
-            {content.subtitle}
-          </p>
-        </ScrollReveal>
+          <ScrollReveal delay={0.08}>
+            <p className="mt-6 max-w-[840px] text-sm leading-[1.6] text-white/78 md:text-[15px]">
+              {content.subtitle}
+            </p>
+          </ScrollReveal>
 
-        <ScrollReveal delay={0.2}>
-          <div className="mt-12">
-            <Button>{content.ctaText}</Button>
-          </div>
-        </ScrollReveal>
+          <ScrollReveal delay={0.16}>
+            <div className="mt-10 w-full max-w-max">
+              <Button className="min-h-16 px-7 shadow-[0_20px_50px_rgba(0,0,0,0.18)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.22)]">
+                {content.ctaText}
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
 
-        {/* Benefit cards */}
-        <ScrollReveal delay={0.3} className="mt-auto pt-24 w-full">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ScrollReveal delay={0.26} className="mt-auto w-full pt-16 md:pt-24">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 xl:gap-5">
             {content.benefits.map((benefit, i) => (
               <div
                 key={i}
-                className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl"
-                style={{
-                  boxShadow: "inset 0 0 4px rgba(255,255,255,0.15)",
-                }}
+                className={cn(
+                  "relative flex min-h-[104px] items-center gap-4 overflow-hidden rounded-2xl border border-white/10 px-5 py-4 backdrop-blur-[20px] shadow-[inset_0_0_4px_rgba(255,255,255,0.15)]",
+                  variant === "management"
+                    ? "bg-[#1a2447]/46"
+                    : "bg-[#5a321d]/24",
+                )}
               >
-                {benefit.icon && (
+                {benefit.icon ? (
                   <Image
                     src={benefit.icon}
                     alt=""
                     width={40}
                     height={40}
-                    className="shrink-0 opacity-80"
+                    className="shrink-0 opacity-95"
                   />
-                )}
-                <p className="text-sm leading-snug text-white">
-                  <span className="font-medium">{benefit.title}</span>
-                  <br />
-                  {benefit.description}
+                ) : null}
+                <p className="text-left text-[15px] leading-[1.25] text-white">
+                  <span className="block font-medium">{benefit.title}</span>
+                  <span className="text-white/82">{benefit.description}</span>
                 </p>
               </div>
             ))}
