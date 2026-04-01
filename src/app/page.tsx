@@ -33,7 +33,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection content={c.hero} variant={variant} />
-        <TeamSection content={c.team} />
+        <TeamSection content={c.team} variant={variant} />
         <DiagnosticSection content={c.diagnostic} />
         <DemoSection />
         <GrowthSection content={c.growth} />
