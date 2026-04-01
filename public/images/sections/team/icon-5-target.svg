@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Grad block icons">
+<g id="Vector" filter="url(#filter0_d_0_4)">
+<path d="M104.677 71.4495L112.077 61.1703L104.677 50.8911M84.2655 115.314H69.9483C55.2242 115.314 43.2869 103.377 43.2869 88.653V87.8393C43.2869 73.1152 55.2242 61.1779 69.9483 61.1779H112.078M109.296 167.34H145.983C160.354 167.34 172 155.694 172 141.323C172 126.952 160.354 115.307 145.983 115.307H97.804M54.5261 167.34H97.8001M87.1977 134.138L102.098 149.031M102.098 134.138L87.1977 149.031M129 39.0326H154L150 31.0163L154 23H129V39.0326ZM129 39.0326V72M53.5163 162.204C56.3508 169.048 53.1012 176.893 46.2582 179.727C39.4151 182.562 31.5699 179.312 28.7354 172.469C25.9009 165.626 29.1505 157.781 35.9936 154.946C42.8366 152.112 50.6818 155.361 53.5163 162.204Z" stroke="var(--stroke-0, white)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_0_4" x="17.6607" y="12.95" width="164.389" height="177.852" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="4.4"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.990712 0 0 0 0 0.408652 0 0 0 0 0.117622 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_4"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_4" result="shape"/>
+</filter>
+</defs>
+</svg>

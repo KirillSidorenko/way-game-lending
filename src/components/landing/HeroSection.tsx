@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import type { HeroContent, Variant } from "@/lib/types";
 
 interface HeroSectionProps {
@@ -31,6 +32,35 @@ const heroAssets = {
     gradientSrc?: string;
   }
 >;
+
+const managementBenefitIcons = [
+  {
+    height: 40.207,
+    src: "/images/hero/management-exact/benefit-request.svg",
+    width: 42,
+  },
+  {
+    height: 51,
+    src: "/images/hero/management-exact/benefit-strategy.svg",
+    width: 27,
+  },
+  {
+    height: 40.803,
+    src: "/images/hero/management-exact/benefit-results.svg",
+    width: 33.602,
+  },
+  {
+    height: 42.623,
+    src: "/images/hero/management-exact/benefit-practice.svg",
+    width: 33.6,
+  },
+] as const;
+
+const managementDesktopArtBlend = {
+  backgroundColor: "#01071e",
+  backgroundImage:
+    "radial-gradient(circle at 50% 26%, rgba(74, 148, 255, 0.14) 0%, rgba(74, 148, 255, 0) 29%)",
+} satisfies CSSProperties;
 
 function splitHeading(text: string, highlightText?: string) {
   if (!highlightText) {
@@ -96,7 +126,7 @@ function HeroBackground({ variant }: { variant: Variant }) {
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(67,19,3,0.76)_0%,rgba(57,16,4,0.34)_32%,rgba(17,4,1,0.84)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,173,92,0.16)_0%,transparent_28%)]" />
-      {assets.gradientSrc ? (
+      {"gradientSrc" in assets && assets.gradientSrc ? (
         <div className="absolute inset-x-0 bottom-0 h-[72px] opacity-80 md:h-[100px]">
           <Image
             src={assets.gradientSrc}
@@ -112,12 +142,21 @@ function HeroBackground({ variant }: { variant: Variant }) {
   );
 }
 
-export function HeroSection({ content, variant }: HeroSectionProps) {
+function ResponsiveHeroSection({
+  className,
+  content,
+  variant,
+}: HeroSectionProps & { className?: string }) {
   const assets = heroAssets[variant];
   const heading = splitHeading(content.heading, content.highlightText);
 
   return (
-    <section className="relative isolate min-h-[920px] overflow-hidden bg-bg-primary pt-28 pb-6 md:min-h-screen md:pt-32 md:pb-8">
+    <section
+      className={cn(
+        "relative isolate min-h-[920px] overflow-hidden bg-bg-primary pt-28 pb-6 md:min-h-screen md:pt-32 md:pb-8",
+        className,
+      )}
+    >
       <div className="absolute inset-0 pointer-events-none">
         <HeroBackground variant={variant} />
       </div>
@@ -125,7 +164,7 @@ export function HeroSection({ content, variant }: HeroSectionProps) {
       <Container className="relative z-10 flex min-h-[calc(920px-7rem)] flex-col md:min-h-[calc(100vh-8rem)]">
         <div className="mx-auto flex w-full max-w-[1040px] flex-col items-center text-center">
           <ScrollReveal>
-            <h1 className="max-w-[980px] text-[2.5rem] font-semibold leading-[1.06] tracking-[-0.04em] text-white sm:text-5xl md:text-[68px]">
+            <h1 className="font-display max-w-[980px] text-[2.5rem] font-normal leading-[1.06] tracking-[-0.04em] text-white sm:text-5xl md:text-[68px]">
               {heading.before}
               {heading.highlight ? (
                 <span className="relative inline-block whitespace-nowrap">
@@ -144,7 +183,7 @@ export function HeroSection({ content, variant }: HeroSectionProps) {
           </ScrollReveal>
 
           <ScrollReveal delay={0.08}>
-            <p className="mt-6 max-w-[840px] text-sm leading-[1.6] text-white/78 md:text-[15px]">
+            <p className="font-ui mt-6 max-w-[840px] text-sm leading-[1.6] text-white/78 md:text-[15px]">
               {content.subtitle}
             </p>
           </ScrollReveal>
@@ -179,7 +218,7 @@ export function HeroSection({ content, variant }: HeroSectionProps) {
                     className="shrink-0 opacity-95"
                   />
                 ) : null}
-                <p className="text-left text-[15px] leading-[1.25] text-white">
+                <p className="font-ui text-left text-[15px] leading-[1.25] text-white">
                   <span className="block font-medium">{benefit.title}</span>
                   <span className="text-white/82">{benefit.description}</span>
                 </p>
@@ -190,4 +229,165 @@ export function HeroSection({ content, variant }: HeroSectionProps) {
       </Container>
     </section>
   );
+}
+
+function ManagementHeroDesktop({ content }: { content: HeroContent }) {
+  return (
+    <section className="relative hidden h-[932px] overflow-hidden bg-[#01071e] min-[1440px]:block">
+      <div
+        className="relative mx-auto h-full w-[1440px]"
+        style={managementDesktopArtBlend}
+      >
+        <div className="absolute inset-0 bg-[#01071e]" />
+
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[142px]">
+          <Image
+            src="/images/hero/management-exact/top-fade.webp"
+            alt=""
+            fill
+            priority
+            sizes="1440px"
+            className="object-fill"
+          />
+        </div>
+
+        <div className="pointer-events-none absolute left-1/2 top-[-118px] h-[1582px] w-[1569px] -translate-x-1/2 opacity-[0.98]">
+          <Image
+            src="/images/hero/management-exact/hero-image-base.webp"
+            alt=""
+            fill
+            priority
+            sizes="1569px"
+            className="object-contain"
+          />
+        </div>
+
+        <div className="pointer-events-none absolute left-1/2 top-[249px] h-[906px] w-[1622px] -translate-x-1/2 opacity-[0.98]">
+          <Image
+            src="/images/hero/management-exact/hero-glow-ellipse.webp"
+            alt=""
+            fill
+            sizes="1622px"
+            className="object-contain"
+          />
+        </div>
+
+        <div className="pointer-events-none absolute left-1/2 top-[228px] h-[895px] w-[1395px] -translate-x-1/2 mix-blend-screen opacity-[0.98]">
+          <Image
+            src="/images/hero/management-exact/hero-image-overlay.webp"
+            alt=""
+            fill
+            sizes="1395px"
+            className="object-contain"
+          />
+        </div>
+
+        <div className="pointer-events-none absolute -right-[90px] -bottom-[85px] h-[1229px] w-[1624px] mix-blend-screen opacity-[0.29]">
+          <Image
+            src="/images/hero/management-exact/hero-noise.webp"
+            alt=""
+            fill
+            sizes="1624px"
+            className="object-cover"
+          />
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[120px] opacity-80">
+          <Image
+            src="/images/hero/management-exact/bottom-fade.webp"
+            alt=""
+            fill
+            sizes="1440px"
+            className="object-fill"
+          />
+        </div>
+
+        <h1 className="font-display absolute left-1/2 top-[126px] w-[938px] -translate-x-1/2 text-center text-[52px] leading-[1.2] text-white">
+          <span className="block">Постройте долгую стратегию</span>
+          <span className="block">
+            команды{" "}
+            <span className="relative inline-block">
+              за 3 часа
+              <span className="pointer-events-none absolute left-1/2 top-[45px] h-4 w-[268px] -translate-x-1/2">
+                <Image
+                  src="/images/hero/management-exact/headline-accent.svg"
+                  alt=""
+                  fill
+                  sizes="268px"
+                  className="object-contain"
+                />
+              </span>
+            </span>
+          </span>
+        </h1>
+
+        <p className="font-ui absolute left-1/2 top-[275px] w-[836px] -translate-x-1/2 text-center text-[14px] leading-[1.5] text-white">
+          {content.subtitle}
+        </p>
+
+        <button
+          type="button"
+          className="absolute left-1/2 top-[356px] flex h-16 w-[305px] -translate-x-1/2 items-center justify-center gap-4 rounded-[100px] bg-white p-2"
+        >
+          <Image
+            src="/images/icons/cta-plus-exact.svg"
+            alt=""
+            width={16}
+            height={16}
+          />
+          <span className="font-ui text-[14px] font-bold uppercase leading-none text-black">
+            {content.ctaText}
+          </span>
+        </button>
+
+        <div className="absolute left-[72px] top-[787px] flex gap-5">
+          {content.benefits.map((benefit, index) => {
+            const icon = managementBenefitIcons[index];
+
+            return (
+              <div
+                key={index}
+                className="relative flex h-[95px] w-[309px] items-center gap-5 rounded-2xl px-6 py-4"
+              >
+                <div className="absolute inset-0 rounded-2xl bg-white/5 backdrop-blur-[20px]" />
+                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_4px_rgba(255,255,255,0.15)]" />
+
+                <div className="relative shrink-0">
+                  <Image
+                    src={icon.src}
+                    alt=""
+                    width={icon.width}
+                    height={icon.height}
+                    className="h-auto"
+                  />
+                </div>
+
+                <p className="font-ui relative text-[16px] leading-[1.2] text-white">
+                  <span className="block">{benefit.title}</span>
+                  <span className="block">{benefit.description}</span>
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function HeroSection({ content, variant }: HeroSectionProps) {
+  if (variant === "management") {
+    return (
+      <>
+        <ManagementHeroDesktop content={content} />
+        <ResponsiveHeroSection
+          content={content}
+          variant={variant}
+          className="min-[1440px]:hidden"
+        />
+      </>
+    );
+  }
+
+  return <ResponsiveHeroSection content={content} variant={variant} />;
 }
